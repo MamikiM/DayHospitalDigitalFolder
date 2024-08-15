@@ -126,6 +126,12 @@ public class StaffController {
         return "medicationTreatment";
     }
 
+    @GetMapping("/createPatient")
+    public String showCreatePatient(Model model){
+        model.addAttribute("patient", new Patient());
+        return "createPatientFolder";
+    }
+
 }
 
 
