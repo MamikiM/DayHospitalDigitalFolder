@@ -132,6 +132,15 @@ public class StaffController {
         return "createPatientFolder";
     }
 
+    @GetMapping("/showPatients")
+    public String showPatientPage(Model model){
+        List<Patient> patients = patientService.getAll();
+
+        model.addAttribute("patientList", patients);
+
+        return "viewPatientFolder";
+    }
+
 }
 
 

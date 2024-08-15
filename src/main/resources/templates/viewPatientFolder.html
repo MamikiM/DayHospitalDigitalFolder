@@ -14,8 +14,47 @@
 </head>
 <body>
 <header>
-    <h1 class="fw-bolder text-center">Patient Folders</h1>
+    <h1 class="fw-bolder text-center">Patients</h1>
 </header>
+
+<div class="table-container mt-5">
+    <table class="table table-dark">
+        <thead class="bg-purple2 text-white">
+        <tr>
+            <th scope="col">PATIENT ID</th>
+            <th scope="col">FIRST NAME</th>
+            <th scope="col">LAST NAME</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white text-dark">
+        <tr th:each="patient: ${patientList}">
+            <form action="/updatePatient" method="post" style="display: inline;">
+                <input type="hidden" name="appointmentId" th:value="${patient.patientId}">
+                <td>
+                    <input type="text" name="appointmentId" th:value="${patient.patientId}" class="form-control" readonly>
+                </td>
+                <td>
+                    <input type="text" name="firstName" th:value="${patient.firstName}" class="form-control">
+                </td>
+                <td>
+                    <input type="text" name="lastName" th:value="${patient.lastName}" class="form-control">
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-danger">Update</button>
+                </td>
+            </form>
+            <td>
+                <form action="/deletePatient" method="post" style="display: inline;">
+                    <input type="hidden" name="appointmentId" th:value="${patient.patientId}">
+                    <button type="submit" class="btn btn-warning">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 

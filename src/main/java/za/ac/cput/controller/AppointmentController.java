@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import za.ac.cput.domain.Appointment;
+import za.ac.cput.domain.Patient;
 import za.ac.cput.domain.Staff;
 import za.ac.cput.service.AppointmentService;
 
@@ -60,5 +61,7 @@ public class AppointmentController {
 
         return "ViewAppointment";
     }
+
+
 
 }

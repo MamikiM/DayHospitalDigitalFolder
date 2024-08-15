@@ -10,11 +10,13 @@ import java.util.List;
 @Service
 public class PatientService implements IPatientService {
 
+    private final PatientRepository patientRepository;
     private PatientRepository repository;
 
     @Autowired
-    PatientService(PatientRepository repository){
+    PatientService(PatientRepository repository, PatientRepository patientRepository){
         this.repository = repository;
+        this.patientRepository = patientRepository;
     }
 
 
@@ -37,5 +39,11 @@ public class PatientService implements IPatientService {
     @Override
     public Patient update(Patient patient) {
         return repository.save(patient);
+    }
+
+
+    @Override
+    public List<Patient> getAll() {
+        return repository.findAll();
     }
 }

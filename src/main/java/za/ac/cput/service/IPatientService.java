@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface IPatientService extends IService<Patient,String>{
 
+    List<Patient> getAll();
+
 
 }
