@@ -29,19 +29,23 @@
     <a class="navbar-brand">
         <img class="img-fluid" src="logo.png" alt="Day Hospital" width="250px" height="80">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="/createPatient">Create Folder</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/showPatients">Show Patients</a>
+            </li>
             <li class="nav-item active">
-                <a class="nav-link" href="createPatientFolder"><strong>Create Folder</strong><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/createAppointment">Create Appointment</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Create Appointment</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/showAppointments}">View Appointments</a>
+                <a class="nav-link" href="/showAppointments">View Appointments</a>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">

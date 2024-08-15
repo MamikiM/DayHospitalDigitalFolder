@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create Patient Folder</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body style="background-color: #89CFF0;">
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <a class="navbar-brand" href="#"><img src="logo.png" width="250px" height="80px"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+
             <li class="nav-item">
-                <a class="nav-link" href="#"></a>
+                <a class="nav-link" href="/createPatient" style="color: grey;">Create Folder</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color: grey;">Create Folder</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color: grey;">Sign Out</a>
+                <a class="nav-link" href="#" style="color: grey;">Sign Out</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#"></a>
@@ -35,58 +35,75 @@
         <div class="col-md-4">
 
 
-            <form action = "/getFolderDetails" method="get">
+            <form action="/getFolderDetails" method="get">
                 <div class="form-group">
                     <label for="patientId">Patient ID</label>
                     <input th:value="${patient != null ? patient.patientId : ''}"
-                           class="form-control" id="patientIds" name="patientId" aria-describedby="idHelp" placeholder="Enter ID">
+                           class="form-control" id="patientIds" name="patientId" aria-describedby="idHelp"
+                           placeholder="Enter ID">
                     <small id="idHelps" class="form-text text-muted">Please enter a valid ID.</small>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark border-black border-2 my-3">Search</button>
                 </div>
             </form>
-            <form  action = "/assignToQueue" method="post">
+            <form action="/assignToQueue" method="post">
                 <div class="form-group">
                     <label for="patientId">Patient ID</label>
                     <input th:value="${patient != null ? patient.patientId : ''}"
-                           class="form-control" id="patientId" name="patientId" aria-describedby="idHelp" placeholder="Enter ID">
+                           class="form-control" id="patientId" name="patientId" aria-describedby="idHelp"
+                           placeholder="Enter ID">
                     <small id="idHelp" class="form-text text-muted">Please enter a valid ID.</small>
                 </div>
                 <div class="form-group">
                     <label for="firstName">First Name</label>
-                    <input th:value="${patient != null ? patient.firstName : ''}" class="form-control" id="firstName" placeholder="First Name" name="firstName">
+                    <input th:value="${patient != null ? patient.firstName : ''}" class="form-control" id="firstName"
+                           placeholder="First Name" name="firstName">
                 </div>
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
-                    <input  th:value="${patient != null ? patient.lastName : ''}"  class="form-control" id="lastName" placeholder="Last Name" name="lastName">
+                    <input th:value="${patient != null ? patient.lastName : ''}" class="form-control" id="lastName"
+                           placeholder="Last Name" name="lastName">
                 </div>
                 <div class="form-group">
                     <label for="testResults">Test Results</label>
-                    <textarea th:text="${patient != null ? patient.testResults : ''}" class="form-control row-cols-sm-6" id="testResults" placeholder="Enter Patient Results" name="testResults"></textarea>
+                    <textarea th:text="${patient != null ? patient.testResults : ''}" class="form-control row-cols-sm-6"
+                              id="testResults" placeholder="Enter Patient Results" name="testResults"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="allergies">Allergies</label>
-                    <textarea th:text="${patient != null ? patient.allergies : ''}"class="form-control row-cols-sm-6" id="allergies" placeholder="Enter Patient Allergies" name="allergies"></textarea>
+                    <textarea th:text="${patient != null ? patient.allergies : ''}" class="form-control row-cols-sm-6"
+                              id="allergies" placeholder="Enter Patient Allergies" name="allergies"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="prescribedMedication">Prescribed Medication</label>
-                    <textarea th:text="${patient != null ? patient.prescribedMedication : ''}" class="form-control row-cols-sm-6" id="prescribedMedication" placeholder="Enter Patient Prescribed Medication" name="prescribedMedication"></textarea>
+                    <textarea th:text="${patient != null ? patient.prescribedMedication : ''}"
+                              class="form-control row-cols-sm-6" id="prescribedMedication"
+                              placeholder="Enter Patient Prescribed Medication" name="prescribedMedication"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="treatmentPlan">Treatment Plans</label>
-                    <textarea th:text="${patient != null ? patient.treatmentPlan : ''}" class="form-control row-cols-sm-6" id="treatmentPlan" placeholder="Enter Patient Treatment Plans" name="treatmentPlan"></textarea>
+                    <textarea th:text="${patient != null ? patient.treatmentPlan : ''}"
+                              class="form-control row-cols-sm-6" id="treatmentPlan"
+                              placeholder="Enter Patient Treatment Plans" name="treatmentPlan"></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-dark border-black border-2 my-3">Assign to Pharmacy Queue</button>
+                    <button type="submit" class="btn btn-dark border-black border-2 my-3">Assign to Pharmacy Queue
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>

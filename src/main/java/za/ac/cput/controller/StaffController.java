@@ -64,7 +64,7 @@ public class StaffController {
             if (role.equals("Doctor")) {
                 return "doctorView";
             } else if (role.equals("Pharmacist")) {
-                return "pharmacistView";
+                return "redirect:/pharmacyQueues";
             } else if (role.equals("Receptionist")) {
                 model.addAttribute("patient", new Patient());
                 return "redirect:/receptionist";
