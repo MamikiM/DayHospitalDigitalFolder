@@ -34,13 +34,23 @@ public class StaffService implements IStaffService {
     }
 
 
-    public boolean validateLogin(String name, String role, String id, String password) {
-        return repository.existsByNameAndEmployeeIdAndEmployeeRoleAndPassword(name, id, role, password);
-    }
+//    public boolean validateLogin(String name, String role, String id, String password) {
+//        return repository.existsByNameAndEmployeeIdAndEmployeeRoleAndPassword(name, id, role, password);
+//    }
 
     @Override
     public List<Staff> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean validateStaff(String empId, String password) {
+        return repository.existsByEmployeeIdAndPassword(empId, password);
+    }
+
+    @Override
+    public Staff findByIdAndPassword(String id, String password) {
+        return repository.findByEmployeeIdAndPassword(id, password);
     }
 }
 

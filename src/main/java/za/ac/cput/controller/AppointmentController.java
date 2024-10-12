@@ -1,5 +1,6 @@
 package za.ac.cput.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +24,9 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @GetMapping("/receptionist")
-    public String showReceptionistPage(Model model){
-        model.addAttribute("staff", new Staff());
+    public String showReceptionistPage(Model model, HttpSession session){
+        Staff staff = (Staff) session.getAttribute("staff");
+        model.addAttribute("staff", staff);
         return "receptionistView";
     }
 

@@ -1,8 +1,13 @@
 package za.ac.cput.controller;
+
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import za.ac.cput.domain.CreateMedicalHistory;
 import za.ac.cput.domain.Patient;
 import za.ac.cput.domain.PharmacyQueue;
@@ -12,13 +17,14 @@ import za.ac.cput.service.PatientService;
 import za.ac.cput.service.PharmacyQueueService;
 import za.ac.cput.service.StaffService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class StaffController {
+
+
 
     @Autowired
     private StaffService staffService;
@@ -31,23 +37,23 @@ public class StaffController {
     List<CreateMedicalHistory> mhList;
 
     @GetMapping("/showHistoryPage")
-        public String test(Model model){
+    public String test(Model model) {
         model.addAttribute("viewMedicalHistory", new Staff());
-        return  "ViewMedicalHistory";
-        }
+        return "ViewMedicalHistory";
+    }
 
 
     @GetMapping("/populateMedicalHistory")
-    public String showHistory(@RequestParam String patientId,Model model){
+    public String showHistory(@RequestParam String patientId, Model model) {
         mhList = medicalHistoryService.getAllMedicalHistory(patientId);
         model.addAttribute("historyList", mhList);
         System.out.println(mhList.toString());
-        return  "showPatientHistory";
+        return "showPatientHistory";
     }
 
     @GetMapping("/showPh")
-    public String showData(Model model){
-        return  "redirect:/showPatientHistory";
+    public String showData(Model model) {
+        return "redirect:/showPatientHistory";
     }
 
     @GetMapping("/createMedicalHistory")
@@ -65,7 +71,7 @@ public class StaffController {
         medicalHistory.setDateCreateMh(formatter.format(date).toString());
         medicalHistoryService.create(medicalHistory);
         PharmacyQueue pharmacyQueue = new PharmacyQueue();
-        if(pharmacyQueueService.checkQueue(patientId)==true){
+        if (pharmacyQueueService.checkQueue(patientId) == true) {
             return "existInQueue";
         }
         pharmacyQueue.setPatientId(patientId);
@@ -83,7 +89,6 @@ public class StaffController {
         model.addAttribute("staff", new Staff());
         return "staff";
     }
-
 
 
     @GetMapping("/loginCredentials")
@@ -113,29 +118,30 @@ public class StaffController {
     }
 
     @PostMapping("/login")
-    public String validateLogin(@RequestParam String id, @RequestParam String role, @RequestParam String name, @RequestParam String password, Model model) {
-        boolean isValidLogin = staffService.validateLogin(name, role, id, password);
+    public String validateLogin(@RequestParam String id, @RequestParam String password, Model model, HttpSession session) {
+        boolean isValidLogin = staffService.validateStaff(id, password);
+        Staff findStaffMember = staffService.findByIdAndPassword(id, password);
+
         if (isValidLogin) {
-            if (role.equals("Doctor")) {
+            if (findStaffMember.getEmployeeRole().equalsIgnoreCase("Doctor")) {
                 return "doctorView";
-            } else if (role.equals("Pharmacist")) {
+            } else if (findStaffMember.getEmployeeRole().equalsIgnoreCase("Pharmacist")) {
                 return "redirect:/pharmacyQueues";
-            } else if (role.equals("Receptionist")) {
+            } else if (findStaffMember.getEmployeeRole().equalsIgnoreCase("Receptionist")) {
                 model.addAttribute("patient", new Patient());
+                session.setAttribute("staff", findStaffMember);
+
                 return "redirect:/receptionist";
             } else {
                 return "incorrect";
             }
-        } else {
-            return "incorrect";
         }
+        return "loginCredentials";
     }
 
 
-
-
     @PostMapping("/savePatient")
-    public String savePatient(Patient patient){
+    public String savePatient(Patient patient) {
         patientService.create(patient);
         return "receptionistView";
     }
@@ -171,6 +177,7 @@ public class StaffController {
         model.addAttribute("pharmacyQueues", pharmacyQueues);
         return "pharmacistView";
     }
+
     @GetMapping("/showPatientDetails")
     public String showPatientDetails(@RequestParam String patientId, Model model) {
         PharmacyQueue pharmacyQueue = pharmacyQueueService.showTreatment(patientId);
@@ -182,13 +189,13 @@ public class StaffController {
     }
 
     @GetMapping("/createPatient")
-    public String showCreatePatient(Model model){
+    public String showCreatePatient(Model model) {
         model.addAttribute("patient", new Patient());
         return "createPatientFolder";
     }
 
     @GetMapping("/showPatients")
-    public String showPatientPage(Model model){
+    public String showPatientPage(Model model) {
         List<Patient> patients = patientService.getAll();
 
         model.addAttribute("patientList", patients);

@@ -8,5 +8,9 @@ public interface StaffRepository extends JpaRepository<Staff,String> {
 
 boolean existsByNameAndEmployeeIdAndEmployeeRoleAndPassword(String name, String id, String role, String password);
 
+boolean existsByEmployeeIdAndPassword(String employeeId, String password);
+
+Staff findByEmployeeIdAndPassword(String employeeId, String password);
+
 
 }
