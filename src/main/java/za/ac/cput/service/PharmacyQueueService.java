@@ -24,6 +24,9 @@ public class PharmacyQueueService {
         return repository.findAll();
     }
 
+    public boolean checkQueue(String id){
+   return repository.existsPharmacyQueueByPatientId(id);}
+
     public PharmacyQueue showTreatment(String id){
         return repository.findPharmacyQueueByPatientId(id);
     }

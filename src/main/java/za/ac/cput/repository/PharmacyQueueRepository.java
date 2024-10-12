@@ -12,6 +12,8 @@ public interface PharmacyQueueRepository extends JpaRepository<PharmacyQueue,Str
 
     PharmacyQueue findPharmacyQueueByPatientId(String id);
 
+    boolean existsPharmacyQueueByPatientId(String id);
+
 
 
     }

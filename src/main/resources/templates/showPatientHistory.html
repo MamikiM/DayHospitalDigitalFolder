@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/showPh}" method="get">
+<div class="table-container">
+    <table class="table custom-tablecolor">
+        <thead class="bg-purple2 text-white">
+        <tr>
+            <th scope="col">PATIENT ID</th>
+            <th scope="col">FIRST NAME</th>
+            <th scope="col">LAST NAME</th>
+            <th scope="col">TEST RESULTS</th>
+            <th scope="col">ALLERGIES</th>
+            <th scope="col">PRESCRIBED MEDICATION</th>
+            <th scope="col">TREATMENT PLAN</th>
+            <th scope="col">DATE</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white text-dark">
+        <tr th:each="history : ${historyList}">
+            <td>
+                <input type="text" name="historyId" th:value="${history.patientIdMh}"
+                       class="form-control" readonly>
+            </td>
+            <td>
+                <input type="text" name="patientName" th:value="${history.firstNameMh}"
+                       class="form-control">
+            </td>
+            <td>
+                <input type="text" name="patientSurname" th:value="${history.lastNameMh}"
+                       class="form-control">
+            </td>
+            <td>
+                <input type="text" name="patientTr" th:value="${history.testResultsMh}"
+                       class="form-control">
+            </td>
+            <td>
+                <input type="text" name="patientAl" th:value="${history.allergiesMh}"
+                       class="form-control">
+            </td>
+            <td>
+                <input type="text" name="patientMe" th:value="${history.prescribedMedicationMh}"
+                       class="form-control">
+            </td>
+            <td>
+                <input type="text" name="patientTp" th:value="${history.treatmentPlanMh}"
+                       class="form-control">
+            </td>
+            <td>
+                <input type="text" name="patientDc" th:value="${history.dateCreateMh}"
+                       class="form-control">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</form>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+</body>
+</html>

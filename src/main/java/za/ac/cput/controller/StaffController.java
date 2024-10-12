@@ -3,15 +3,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.domain.CreateMedicalHistory;
 import za.ac.cput.domain.Patient;
 import za.ac.cput.domain.PharmacyQueue;
 import za.ac.cput.domain.Staff;
+import za.ac.cput.service.MedicalHistoryService;
 import za.ac.cput.service.PatientService;
 import za.ac.cput.service.PharmacyQueueService;
 import za.ac.cput.service.StaffService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class StaffController {
@@ -22,6 +26,57 @@ public class StaffController {
     private PatientService patientService;
     @Autowired
     private PharmacyQueueService pharmacyQueueService;
+    @Autowired
+    private MedicalHistoryService medicalHistoryService;
+    List<CreateMedicalHistory> mhList;
+
+    @GetMapping("/showHistoryPage")
+        public String test(Model model){
+        model.addAttribute("viewMedicalHistory", new Staff());
+        return  "ViewMedicalHistory";
+        }
+
+
+    @GetMapping("/populateMedicalHistory")
+    public String showHistory(@RequestParam String patientId,Model model){
+        mhList = medicalHistoryService.getAllMedicalHistory(patientId);
+        model.addAttribute("historyList", mhList);
+        System.out.println(mhList.toString());
+        return  "showPatientHistory";
+    }
+
+    @GetMapping("/showPh")
+    public String showData(Model model){
+        return  "redirect:/showPatientHistory";
+    }
+
+    @GetMapping("/createMedicalHistory")
+    public String createHistory(@RequestParam String patientId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String testResults, @RequestParam String allergies, @RequestParam String prescribedMedication, @RequestParam String treatmentPlan) {
+        CreateMedicalHistory medicalHistory = new CreateMedicalHistory();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        medicalHistory.setPatientIdMh(patientId);
+        medicalHistory.setFirstNameMh(firstName);
+        medicalHistory.setLastNameMh(lastName);
+        medicalHistory.setTestResultsMh(testResults);
+        medicalHistory.setAllergiesMh(allergies);
+        medicalHistory.setPrescribedMedicationMh(prescribedMedication);
+        medicalHistory.setTreatmentPlanMh(treatmentPlan);
+        medicalHistory.setDateCreateMh(formatter.format(date).toString());
+        medicalHistoryService.create(medicalHistory);
+        PharmacyQueue pharmacyQueue = new PharmacyQueue();
+        if(pharmacyQueueService.checkQueue(patientId)==true){
+            return "existInQueue";
+        }
+        pharmacyQueue.setPatientId(patientId);
+        pharmacyQueue.setFirstName(firstName);
+        pharmacyQueue.setLastName(lastName);
+        pharmacyQueue.setPrescribedMedication(prescribedMedication);
+        pharmacyQueue.setTreatmentPlan(treatmentPlan);
+        pharmacyQueueService.createPharmacyQueue(pharmacyQueue);
+        return "doctorView";
+    }
+
 
     @GetMapping("/login")
     public String showForm(Model model) {
@@ -85,7 +140,7 @@ public class StaffController {
         return "receptionistView";
     }
 
-    @PostMapping("/assignToQueue")
+   /* @PostMapping("/assignToQueue")
     public String assign(@RequestParam String patientId, @RequestParam String firstName,@RequestParam String lastName,@RequestParam String prescribedMedication,@RequestParam String treatmentPlan){
         PharmacyQueue pharmacyQueue = new PharmacyQueue();
         pharmacyQueue.setPatientId(patientId);
@@ -95,7 +150,7 @@ public class StaffController {
         pharmacyQueue.setTreatmentPlan(treatmentPlan);
         pharmacyQueueService.createPharmacyQueue(pharmacyQueue);
         return "doctorView";
-    }
+    }*/
 
     @GetMapping("/pharmacy")
     public String showPharmacyPage() {
