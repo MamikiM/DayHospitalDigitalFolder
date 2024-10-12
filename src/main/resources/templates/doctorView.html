@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create Patient Folder</title>
@@ -19,6 +20,12 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/createPatient" style="color: grey;">Create Folder</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/showHistoryPage}" style="color: grey;">View Medical History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  style="color: grey;">View Appointments</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" style="color: grey;">Sign Out</a>
@@ -48,7 +55,7 @@
                 </div>
             </form>
             <form action="/assignToQueue" method="post">
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="patientId">Patient ID</label>
                     <input th:value="${patient != null ? patient.patientId : ''}"
                            class="form-control" id="patientId" name="patientId" aria-describedby="idHelp"
@@ -56,46 +63,75 @@
                     <small id="idHelp" class="form-text text-muted">Please enter a valid ID.</small>
                 </div>
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input th:value="${patient != null ? patient.firstName : ''}" class="form-control" id="firstName"
-                           placeholder="First Name" name="firstName">
+                    <label> First Name: <span th:text="${patient != null ? patient.firstName : ''}"></span></label>
+                   <input th:value="${patient != null ? patient.firstName : ''}" class="form-control" id="firstName"
+                           placeholder="First Name" name="firstName" hidden>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input th:value="${patient != null ? patient.lastName : ''}" class="form-control" id="lastName"
-                           placeholder="Last Name" name="lastName">
+                    <label>Last Name: <span th:text="${patient != null ? patient.lastName : ''}"></span></label>
+                    <input th:value="${patient != null ? patient.lastName : ''}" class="form-control"
+                           placeholder="LastName" hidden>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="testResults">Test Results</label>
-                    <textarea th:text="${patient != null ? patient.testResults : ''}" class="form-control row-cols-sm-6"
-                              id="testResults" placeholder="Enter Patient Results" name="testResults"></textarea>
+                    <textarea class="form-control row-cols-sm-6"
+                               placeholder="Enter Patient Results" name="testResults"></textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="allergies">Allergies</label>
-                    <textarea th:text="${patient != null ? patient.allergies : ''}" class="form-control row-cols-sm-6"
+                    <textarea  class="form-control row-cols-sm-6"
                               id="allergies" placeholder="Enter Patient Allergies" name="allergies"></textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="prescribedMedication">Prescribed Medication</label>
-                    <textarea th:text="${patient != null ? patient.prescribedMedication : ''}"
+                    <textarea
                               class="form-control row-cols-sm-6" id="prescribedMedication"
                               placeholder="Enter Patient Prescribed Medication" name="prescribedMedication"></textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="treatmentPlan">Treatment Plans</label>
-                    <textarea th:text="${patient != null ? patient.treatmentPlan : ''}"
-                              class="form-control row-cols-sm-6" id="treatmentPlan"
+                    <textarea
+                              class="form-control row-cols-sm-6"
                               placeholder="Enter Patient Treatment Plans" name="treatmentPlan"></textarea>
                 </div>
-                <div class="text-center">
+                <div class="text-center" hidden>
                     <button type="submit" class="btn btn-dark border-black border-2 my-3">Assign to Pharmacy Queue
                     </button>
                 </div>
             </form>
+                <form th:action="@{/createMedicalHistory}"  method="get">
+                    <input type="hidden" name="patientId" th:value="${patient != null ? patient.patientId : ''}">
+                    <input type="hidden" name="firstName" th:value="${patient != null ? patient.firstName : ''}">
+                    <input type="hidden" name="lastName" th:value="${patient != null ? patient.lastName : ''}">
+                    <div class="form-group">
+                        <label for="testResults">Test Results</label>
+                        <textarea class="form-control row-cols-sm-6"
+                                  id="testResults" placeholder="Enter Patient Results" name="testResults"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="allergies">Allergies</label>
+                        <textarea  class="form-control row-cols-sm-6"
+                                   placeholder="Enter Patient Allergies" name="allergies"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="prescribedMedication">Prescribed Medication</label>
+                        <textarea
+                                class="form-control row-cols-sm-6"
+                                placeholder="Enter Patient Prescribed Medication" name="prescribedMedication"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="treatmentPlan">Treatment Plans</label>
+                        <textarea
+                                class="form-control row-cols-sm-6" id="treatmentPlan"
+                                placeholder="Enter Patient Treatment Plans" name="treatmentPlan"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark border-black border-2 my-3">Create medical history and assign to queue</button>
+                    </div>
+            </form>
         </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
