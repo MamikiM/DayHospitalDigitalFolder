@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import za.ac.cput.domain.CreateMedicalHistory;
 import za.ac.cput.domain.Patient;
 import za.ac.cput.domain.PharmacyQueue;
@@ -20,6 +20,8 @@ import za.ac.cput.service.StaffService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class StaffController {
@@ -143,7 +145,7 @@ public class StaffController {
     @PostMapping("/savePatient")
     public String savePatient(Patient patient) {
         patientService.create(patient);
-        return "receptionistView";
+        return "redirect:/createPatient";
     }
 
    /* @PostMapping("/assignToQueue")
@@ -202,6 +204,18 @@ public class StaffController {
 
         return "viewPatientFolder";
     }
+
+    @PostMapping("/updatePatient")
+    public String updatePatient(@ModelAttribute Patient patient) {
+       System.out.println(patient);
+       Patient patient1 = patientService.read(patient.getPatientId());
+       System.out.println(patient1);
+        patientService.update(patient1);
+       
+        return "redirect:/showPatients";
+        
+    }
+    
 
 }
 

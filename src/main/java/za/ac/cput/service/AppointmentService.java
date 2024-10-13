@@ -10,6 +10,17 @@ import java.util.List;
 @Service
 public class AppointmentService implements IAppointmentService{
 
+    @Override
+    public Appointment deleteAppointment(Long appointmentId) {
+        Appointment appointment = read(appointmentId);
+        if(appointment != null){
+            repository.deleteById(appointmentId);
+            return appointment;
+        }else{
+            return null;
+        }
+    }
+
     @Autowired
     private AppointmentRepository repository;
 
@@ -31,5 +42,10 @@ public class AppointmentService implements IAppointmentService{
     @Override
     public List<Appointment> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean checkDuplicate(Appointment appointment) {
+        return repository.existsByEmailAndDateAndTime(appointment.getEmail(), appointment.getDate(), appointment.getTime());
     }
 }

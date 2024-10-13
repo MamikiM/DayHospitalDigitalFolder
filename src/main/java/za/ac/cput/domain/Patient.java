@@ -92,4 +92,15 @@ public class Patient {
         this.treatmentPlan = treatmentPlan;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Patient [patientId=" + patientId + ", firstName=" + firstName + ", lastName=" + lastName
+                + ", testResults=" + testResults + ", allergies=" + allergies + ", prescribedMedication="
+                + prescribedMedication + ", treatmentPlan=" + treatmentPlan + "]";
+    }
+
+    
+
+
 }

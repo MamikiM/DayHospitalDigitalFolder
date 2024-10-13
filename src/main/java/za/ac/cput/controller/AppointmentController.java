@@ -4,10 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Appointment;
 import za.ac.cput.domain.Patient;
 import za.ac.cput.domain.Staff;
@@ -32,13 +29,12 @@ public class AppointmentController {
 
     @GetMapping("/createAppointment")
     public String showCreateAppointment(Model model){
-        model.addAttribute("appointment");
+        model.addAttribute("appointment", new Appointment());
         return "createAppointment";
     }
 
-
     @PostMapping("/saveAppointment")
-    public String saveAppointment(@RequestParam String email, @RequestParam String mobile, @RequestParam String date, @RequestParam String time, @RequestParam String firstName, @RequestParam String lastName){
+    public String saveAppointment(Model model, @RequestParam String email, @RequestParam String mobile, @RequestParam String date, @RequestParam String time, @RequestParam String firstName, @RequestParam String lastName){
 
        Appointment appointment = new Appointment();
        appointment.setFirstName(firstName);
@@ -48,22 +44,37 @@ public class AppointmentController {
        appointment.setTime(LocalTime.parse(time));
        appointment.setMobile(Long.valueOf(mobile));
 
+       if(appointmentService.checkDuplicate(appointment)){
+           model.addAttribute("errorMessage", "Appointment already exists");
+           return "createAppointment";
+       }
+
        appointmentService.create(appointment);
 
-        System.out.println(appointment);
-        return "createAppointment";
-
+       System.out.println(appointment);
+       return "redirect:/createAppointment";
     }
 
     @GetMapping("/showAppointments")
     public String showAppointmentPage(Model model){
         List<Appointment> appointments = appointmentService.getAll();
-
         model.addAttribute("appointmentList", appointments);
-
         return "ViewAppointment";
     }
 
+    @PostMapping("/deleteAppointment")
+    public String deleteAppointment(@RequestParam Long appointmentId){
+        appointmentService.deleteAppointment(appointmentId);
+        System.out.println("Appointment deleted");
 
+        return "redirect:/showAppointments";
 
+    }
+
+   
+    @PostMapping("/updateAppointment")
+    public String updateAppointment(@ModelAttribute Appointment appointment, Model model) {
+        appointmentService.update(appointment);
+        return "redirect:/showAppointments";
+    }
 }
