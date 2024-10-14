@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.PharmacyQueue;
@@ -30,4 +31,16 @@ public class PharmacyQueueService {
     public PharmacyQueue showTreatment(String id){
         return repository.findPharmacyQueueByPatientId(id);
     }
-}
+
+    @Transactional
+    public void deleteIndividualPatientInQueue(String patientId){
+        repository.deletePharmacyQueueByPatientId(patientId);
+    }
+
+
+
+    }
+
+
+
+

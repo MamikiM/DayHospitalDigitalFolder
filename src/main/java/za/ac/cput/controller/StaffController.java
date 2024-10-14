@@ -190,6 +190,21 @@ public class StaffController {
         return "medicationTreatment";
     }
 
+    @PostMapping("/deletePatientDetails")
+    public String deletePatientDetails(@RequestParam String patientId, Model model) {
+        List<PharmacyQueue> pharmacyQueues = pharmacyQueueService.getAllPharmacyQueues();
+        model.addAttribute("pharmacyQueues", pharmacyQueues);
+        pharmacyQueueService.deleteIndividualPatientInQueue(patientId);
+        return "redirect:/showDeletePatientFolder";
+    }
+
+    @GetMapping("/showDeletePatientFolder")
+    public String deletePatientDetails(Model model) {
+        List<PharmacyQueue> pharmacyQueues = pharmacyQueueService.getAllPharmacyQueues();
+        model.addAttribute("pharmacyQueues", pharmacyQueues);
+        return "deletePatientFolder";
+    }
+
     @GetMapping("/createPatient")
     public String showCreatePatient(Model model) {
         model.addAttribute("patient", new Patient());
