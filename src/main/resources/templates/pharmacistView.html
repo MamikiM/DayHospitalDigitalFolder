@@ -6,22 +6,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<body style="background-color: #89CFF0;">
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand" href="#"><img src="logo.png" width="250px" height="80px"/></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand">
+        <img class="img-fluid" src="logo.png" alt="Day Hospital"
+             width="250px" height="80">
+    </a>
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    <div class="collapse navbar-collapse"
+         id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href ="@{/showDeletePatientFolder}">Home</a>
+                <a class="nav-link" th:href ="@{/showDeletePatientFolder}">Delete Folder
+                </a>
             </li>
         </ul>
+        <span class="ml-auto">
+                       <a class="nav-link"
+                          th:href="@{/loginCredentials}">Logout</a>
+                    </span>
     </div>
 </nav>
-
+<body style="background-color: #89CFF0;">
 <div class="container">
     <div class="row">
         <!-- Iterate over pharmacyQueues -->

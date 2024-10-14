@@ -17,18 +17,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/createPatient" style="color: grey;">Create Folder</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/showHistoryPage}" style="color: grey;">View Medical History</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  style="color: grey;">View Appointments</a>
+                <a class="nav-link"  th:href="@{/showAppointments}" style="color: grey;">View Appointments</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: grey;">Sign Out</a>
+                <a class="nav-link" th:href="@{/loginCredentials}" style="color: grey;">Logout</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#"></a>
