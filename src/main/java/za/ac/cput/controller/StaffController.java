@@ -99,6 +99,11 @@ public class StaffController {
         return "loginCredentials";
     }
 
+    @GetMapping("/doctorPage")
+    public String doctorPAge(Model model) {
+        return "doctorView";
+    }
+
     @GetMapping("/getFolderDetails")
     public String showDetails(@RequestParam String patientId, Model model) {
         Patient patient = patientService.getDetailsOfPatient(patientId);
@@ -230,6 +235,7 @@ public class StaffController {
         return "redirect:/showPatients";
         
     }
+
     
 
 }
