@@ -52,5 +52,10 @@ public class StaffService implements IStaffService {
     public Staff findByIdAndPassword(String id, String password) {
         return repository.findByEmployeeIdAndPassword(id, password);
     }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
 }
 
