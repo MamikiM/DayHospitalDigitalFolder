@@ -7,5 +7,7 @@ import java.util.List;
         boolean validateStaff(String empId,String password);
 
         Staff findByIdAndPassword(String id,String password);
+
+        void delete(String id);
     }
 

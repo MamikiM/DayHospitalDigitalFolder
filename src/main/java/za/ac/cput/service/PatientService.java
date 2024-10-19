@@ -46,4 +46,9 @@ public class PatientService implements IPatientService {
     public List<Patient> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
 }
